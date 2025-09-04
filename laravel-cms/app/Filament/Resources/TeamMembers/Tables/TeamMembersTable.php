@@ -18,7 +18,8 @@ class TeamMembersTable
             ->columns([
                 TextColumn::make('name')
                     ->searchable(),
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->url(fn ($record) => $record->image ? asset('storage/' . $record->image) : null),
                 TextColumn::make('order')
                     ->numeric()
                     ->sortable(),

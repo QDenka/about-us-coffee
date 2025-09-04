@@ -16,7 +16,8 @@ class StoriesTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->url(fn ($record) => $record->image ? asset('storage/' . $record->image) : null),
                 TextColumn::make('order')
                     ->numeric()
                     ->sortable(),

@@ -13,11 +13,11 @@ function safeGetTranslation($model, $field, $locale) {
     } else {
         $result = $translation ?? '';
     }
-    
+
     // Convert different line break formats to actual line breaks
     $result = str_replace(['\\n', '\n'], "\n", $result);
     $result = str_replace(['\r\n', '\\r\\n'], "\n", $result);
-    
+
     return $result;
 }
 
@@ -57,6 +57,14 @@ function getSectionOrder($sectionKey, $sectionOrder) {
 
     @vite(['resources/css/style.css', 'resources/js/app.js', 'resources/js/script.js'])
 </head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7SZZRD6NJ8"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7SZZRD6NJ8');
+</script>
 <body>
 
 <div class="loader" id="loader">
@@ -313,9 +321,9 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                 <h3>{{ app()->getLocale() == 'vi' ? 'SƠ ĐỒ TẦNG' : 'FLOOR PLAN' }}</h3>
                 <div class="floor-level">
                     @if($workspace?->ground_floor_image)
-                        <a href="{{ asset('storage/' . $workspace->ground_floor_image) }}" 
+                        <a href="{{ asset('storage/' . $workspace->ground_floor_image) }}"
                            class="floor-image-link"
-                           data-pswp-width="1200" 
+                           data-pswp-width="1200"
                            data-pswp-height="800">
                             <div class="floor-image">
                                 <img src="{{ asset('storage/' . $workspace->ground_floor_image) }}" alt="Ground Floor">
@@ -328,9 +336,9 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                 <div class="floor-level">
                     <div class="speed-sticker">{{ $workspace?->wifi_speed ?? '300mbps' }}</div>
                     @if($workspace?->second_floor_image)
-                        <a href="{{ asset('storage/' . $workspace->second_floor_image) }}" 
+                        <a href="{{ asset('storage/' . $workspace->second_floor_image) }}"
                            class="floor-image-link"
-                           data-pswp-width="1200" 
+                           data-pswp-width="1200"
                            data-pswp-height="800">
                             <div class="floor-image">
                                 <img src="{{ asset('storage/' . $workspace->second_floor_image) }}" alt="Second Floor">
@@ -481,10 +489,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         <div class="contact-form-section">
             <form class="contact-form" id="contactForm" action="{{ route('contact.store') }}" method="POST">
                 @csrf
-                
+
                 <!-- Honeypot field (hidden) -->
                 <input type="text" name="website" style="display: none;" tabindex="-1" autocomplete="off">
-                
+
                 <div class="form-group">
                     <label for="name">{{ app()->getLocale() == 'vi' ? 'TÊN' : 'NAME' }}</label>
                     <input type="text" id="name" name="name" required minlength="2" maxlength="255">
@@ -501,6 +509,21 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                     <div class="char-counter"><span id="messageLength">0</span>/2000</div>
                     <div class="error-message" id="message-error"></div>
                 </div>
+                
+                <div class="form-group privacy-consent">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="privacy_consent" name="privacy_consent" required>
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">
+                            {{ app()->getLocale() == 'vi' ? 'Tôi đồng ý với việc xử lý dữ liệu cá nhân của tôi.' : 'I agree to the processing of my personal data.' }}
+                            <a href="#" class="privacy-link" onclick="showPrivacyInfo(event)">
+                                {{ app()->getLocale() == 'vi' ? 'Xem thông tin bảo mật' : 'Privacy information' }}
+                            </a>
+                        </span>
+                    </label>
+                    <div class="error-message" id="privacy-error"></div>
+                </div>
+
                 <button type="submit" class="submit-btn" id="submitBtn">
                     <span class="btn-text">{{ app()->getLocale() == 'vi' ? 'GỬI TIN NHẮN' : 'SEND MESSAGE' }}</span>
                     <span class="btn-loading" style="display: none;">{{ app()->getLocale() == 'vi' ? 'Đang gửi...' : 'Sending...' }}</span>
@@ -585,10 +608,111 @@ function getSectionOrder($sectionKey, $sectionOrder) {
             @else
             <p>&copy; 2025 ABOUT US Coffee & Eatery | {{ app()->getLocale() == 'vi' ? 'Cà phê chuyên nghiệp & Văn hóa cà phê hiện đại tại Đà Nẵng' : 'Specialty Coffee & Modern Cafe Culture in Da Nang' }}</p>
             @endif
+            <p>Made in <a href="https://kaban.dev">KABAN.DEV</a></p>
         </div>
     </div>
 </footer>
 @endif
+
+<!-- Privacy Information Modal -->
+<div id="privacyModal" class="privacy-modal" style="display: none;">
+    <div class="privacy-modal-content">
+        <div class="privacy-modal-header">
+            <h3>{{ app()->getLocale() == 'vi' ? 'Thông Tin Bảo Mật Dữ Liệu Cá Nhân' : 'Personal Data Privacy Information' }}</h3>
+            <button class="privacy-close" onclick="closePrivacyInfo()">&times;</button>
+        </div>
+        <div class="privacy-modal-body">
+            @if(app()->getLocale() == 'vi')
+            <h4>Thông Tin Thu Thập</h4>
+            <p>Chúng tôi thu thập các thông tin sau từ bạn:</p>
+            <ul>
+                <li>Họ và tên</li>
+                <li>Địa chỉ email</li>
+                <li>Tin nhắn liên hệ</li>
+                <li>Địa chỉ IP (để bảo mật)</li>
+            </ul>
+            
+            <h4>Google Analytics</h4>
+            <p>Website này sử dụng Google Analytics để phân tích lưu lượng truy cập. Google Analytics thu thập:</p>
+            <ul>
+                <li>Thông tin về thiết bị và trình duyệt</li>
+                <li>Địa chỉ IP (được ẩn danh hóa)</li>
+                <li>Thời gian truy cập và tương tác với website</li>
+                <li>Trang web được xem và thời gian ở lại</li>
+            </ul>
+            <p>Dữ liệu này được sử dụng để cải thiện trải nghiệm người dùng và không được liên kết với thông tin cá nhân của bạn. Bạn có thể tắt Google Analytics bằng cách sử dụng các công cụ chặn theo dõi hoặc opt-out của Google.</p>
+            
+            <h4>Mục Đích Sử Dụng</h4>
+            <p>Dữ liệu của bạn được sử dụng để:</p>
+            <ul>
+                <li>Phản hồi yêu cầu liên hệ của bạn</li>
+                <li>Cải thiện dịch vụ khách hàng</li>
+                <li>Ngăn chặn spam và lạm dụng</li>
+                <li>Phân tích và cải thiện hiệu suất website</li>
+            </ul>
+            
+            <h4>Bảo Mật Dữ Liệu</h4>
+            <p>Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn và không chia sẻ với bên thứ ba nào khác ngoài mục đích phản hồi liên hệ.</p>
+            
+            <h4>Quyền Của Bạn</h4>
+            <p>Bạn có quyền yêu cầu xóa hoặc chỉnh sửa thông tin cá nhân của mình bằng cách liên hệ với chúng tôi.</p>
+            @else
+            <h4>Information We Collect</h4>
+            <p>We collect the following information from you:</p>
+            <ul>
+                <li>Your name</li>
+                <li>Email address</li>
+                <li>Contact message</li>
+                <li>IP address (for security purposes)</li>
+            </ul>
+            
+            <h4>Google Analytics</h4>
+            <p>This website uses Google Analytics to analyze website traffic. Google Analytics collects:</p>
+            <ul>
+                <li>Device and browser information</li>
+                <li>IP address (anonymized)</li>
+                <li>Visit time and website interactions</li>
+                <li>Pages viewed and time spent</li>
+            </ul>
+            <p>This data is used to improve user experience and is not linked to your personal information. You can disable Google Analytics by using tracking blockers or Google's opt-out tools.</p>
+            
+            <h4>Purpose of Use</h4>
+            <p>Your data is used to:</p>
+            <ul>
+                <li>Respond to your contact requests</li>
+                <li>Improve our customer service</li>
+                <li>Prevent spam and abuse</li>
+                <li>Analyze and improve website performance</li>
+            </ul>
+            
+            <h4>Data Security</h4>
+            <p>We are committed to protecting your personal information and do not share it with any third parties except for the purpose of responding to your contact.</p>
+            
+            <h4>Your Rights</h4>
+            <p>You have the right to request deletion or modification of your personal information by contacting us.</p>
+            @endif
+        </div>
+    </div>
+</div>
+
+<script>
+function showPrivacyInfo(event) {
+    event.preventDefault();
+    document.getElementById('privacyModal').style.display = 'flex';
+}
+
+function closePrivacyInfo() {
+    document.getElementById('privacyModal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('privacyModal');
+    if (event.target === modal) {
+        closePrivacyInfo();
+    }
+}
+</script>
 
 </body>
 </html>

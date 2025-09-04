@@ -110,6 +110,17 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
         formMessage.className = 'form-message';
     }
     
+    // Validate privacy consent
+    const privacyConsent = document.getElementById('privacy_consent');
+    const privacyError = document.getElementById('privacy-error');
+    
+    if (!privacyConsent.checked) {
+        privacyError.textContent = document.documentElement.lang === 'vi' 
+            ? 'Bạn phải đồng ý với việc xử lý dữ liệu cá nhân.' 
+            : 'You must agree to the processing of personal data.';
+        return;
+    }
+    
     // Show loading state
     btnText.style.display = 'none';
     btnLoading.style.display = 'inline';
@@ -144,7 +155,8 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
             // Handle validation errors
             if (data.errors) {
                 Object.keys(data.errors).forEach(field => {
-                    const errorEl = document.getElementById(field + '-error');
+                    const errorField = field === 'privacy_consent' ? 'privacy' : field;
+                    const errorEl = document.getElementById(errorField + '-error');
                     if (errorEl) {
                         errorEl.textContent = data.errors[field][0];
                     }

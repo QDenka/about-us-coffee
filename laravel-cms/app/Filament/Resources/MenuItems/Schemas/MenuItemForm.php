@@ -14,7 +14,7 @@ use Filament\Schemas\Schema;
 class MenuItemForm
 {
     use HasTranslationFields;
-    
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -34,7 +34,7 @@ class MenuItemForm
                             ->dehydrateStateUsing(function ($state, $get, $record) {
                                 $currentTranslations = $record?->getTranslations('name') ?? [];
                                 $viState = $get('name_vi');
-                                
+
                                 $result = HasTranslationFields::buildTranslationStructure($currentTranslations, 'en', $state);
                                 if ($viState !== null) {
                                     $result = HasTranslationFields::buildTranslationStructure($result, 'vi', $viState);
@@ -64,7 +64,7 @@ class MenuItemForm
                             ->dehydrateStateUsing(function ($state, $get, $record) {
                                 $currentTranslations = $record?->getTranslations('description') ?? [];
                                 $viState = $get('description_vi');
-                                
+
                                 $result = HasTranslationFields::buildTranslationStructure($currentTranslations, 'en', $state);
                                 if ($viState !== null) {
                                     $result = HasTranslationFields::buildTranslationStructure($result, 'vi', $viState);
@@ -100,67 +100,6 @@ class MenuItemForm
                         'noncoffee' => 'Non-Coffee'
                     ])
                     ->required(),
-                Grid::make(2)
-                    ->schema([
-                        Textarea::make('ingredients_en')
-                            ->label('Ingredients (English)')
-                            ->afterStateHydrated(function (Textarea $component, $state, $record) {
-                                if ($record) {
-                                    $translations = $record->getTranslations('ingredients');
-                                    $value = HasTranslationFields::safeGetTranslation($translations, 'en');
-                                    $component->state($value);
-                                }
-                            })
-                            ->dehydrateStateUsing(function ($state, $get, $record) {
-                                $currentTranslations = $record?->getTranslations('ingredients') ?? [];
-                                $viState = $get('ingredients_vi');
-                                
-                                $result = HasTranslationFields::buildTranslationStructure($currentTranslations, 'en', $state);
-                                if ($viState !== null) {
-                                    $result = HasTranslationFields::buildTranslationStructure($result, 'vi', $viState);
-                                }
-                                return $result;
-                            })
-                            ->statePath('ingredients'),
-                        Textarea::make('ingredients_vi')
-                            ->label('Ingredients (Vietnamese)')
-                            ->afterStateHydrated(function (Textarea $component, $state, $record) {
-                                if ($record) {
-                                    $translations = $record->getTranslations('ingredients');
-                                    $value = HasTranslationFields::safeGetTranslation($translations, 'vi');
-                                    $component->state($value);
-                                }
-                            }),
-                        Textarea::make('allergens_en')
-                            ->label('Allergens (English)')
-                            ->afterStateHydrated(function (Textarea $component, $state, $record) {
-                                if ($record) {
-                                    $translations = $record->getTranslations('allergens');
-                                    $value = HasTranslationFields::safeGetTranslation($translations, 'en');
-                                    $component->state($value);
-                                }
-                            })
-                            ->dehydrateStateUsing(function ($state, $get, $record) {
-                                $currentTranslations = $record?->getTranslations('allergens') ?? [];
-                                $viState = $get('allergens_vi');
-                                
-                                $result = HasTranslationFields::buildTranslationStructure($currentTranslations, 'en', $state);
-                                if ($viState !== null) {
-                                    $result = HasTranslationFields::buildTranslationStructure($result, 'vi', $viState);
-                                }
-                                return $result;
-                            })
-                            ->statePath('allergens'),
-                        Textarea::make('allergens_vi')
-                            ->label('Allergens (Vietnamese)')
-                            ->afterStateHydrated(function (Textarea $component, $state, $record) {
-                                if ($record) {
-                                    $translations = $record->getTranslations('allergens');
-                                    $value = HasTranslationFields::safeGetTranslation($translations, 'vi');
-                                    $component->state($value);
-                                }
-                            }),
-                    ]),
                 Toggle::make('is_available')
                     ->required(),
                 TextInput::make('order')

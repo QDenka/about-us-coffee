@@ -2676,20 +2676,27 @@ footer::before {
 /* Mobile First Responsive */
 @media (max-width: 768px) {
     nav {
-        top: 50%;
+        position: fixed;
+        top: 20px;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         width: auto;
-        padding: 0;
-        background: transparent;
-        border: none;
-        box-shadow: none;
+        padding: 10px 20px;
+        background: var(--black);
+        border: 4px solid var(--primary);
+        box-shadow: 4px 4px 0 var(--primary);
+        z-index: 1000;
+    }
+
+    nav.scrolled {
+        top: 20px;
+        padding: 10px 20px;
     }
 
     .nav-content {
         justify-content: center;
         align-items: center;
-        flex-direction: column;
+        flex-direction: row;
         gap: 0;
     }
 
@@ -2698,69 +2705,35 @@ footer::before {
     }
 
     .mobile-menu-toggle {
-        display: flex;
+        display: none;
     }
 
     nav ul {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(26, 26, 26, 0.98);
-        backdrop-filter: blur(10px);
-        flex-direction: column;
-        gap: 0;
-        padding: 80px 40px;
-        transform: translateY(-100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s ease;
-        z-index: 10000;
-        justify-content: center;
-        align-items: center;
+        display: none;
     }
 
-    nav ul.active {
-        transform: translateY(0);
-        opacity: 1;
-        visibility: visible;
-    }
-
-    nav li {
-        margin: 15px 0;
-        width: 100%;
-        text-align: center;
-    }
-
-    nav a {
-        font-size: 24px;
-        padding: 20px 30px;
-        display: block;
-        min-height: 60px;
+    .language-switcher {
         display: flex;
-        align-items: center;
-        text-align: center;
-        justify-content: center;
-        border: 3px solid var(--primary);
-        background: transparent;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        color: var(--cream);
-        margin: 0 auto;
-        max-width: 280px;
+        gap: 0.3rem;
     }
 
-    nav a:hover,
-    nav a:focus {
+    .language-switcher a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 20px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+    }
+
+    .language-switcher a:hover {
         background: var(--primary);
         color: var(--black);
-        transform: translateY(-3px);
-        box-shadow: 6px 6px 0 var(--cream);
+        transform: translateY(-2px);
     }
 
-    nav a::after {
-        display: none;
+    .language-switcher a.active {
+        background: var(--primary);
+        color: var(--black);
     }
 }
 
@@ -3038,6 +3011,234 @@ footer::before {
 
     .contact-form {
         border-width: 6px;
+    }
+}
+
+/* Privacy Consent Styles */
+.privacy-consent {
+    margin-bottom: 25px !important;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.checkbox-container input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background: var(--cream);
+    border: 3px solid var(--black);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background: var(--light-brown);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background: var(--primary);
+    box-shadow: 4px 4px 0 var(--black);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    border: solid var(--black);
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-text {
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.privacy-link {
+    color: var(--primary);
+    text-decoration: underline;
+    font-weight: 600;
+    margin-left: 5px;
+    transition: color 0.3s ease;
+}
+
+.privacy-link:hover {
+    color: var(--dark-teal);
+}
+
+/* Privacy Modal Styles */
+.privacy-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+}
+
+.privacy-modal-content {
+    background: var(--cream);
+    margin: 15% auto;
+    padding: 0;
+    border: 6px solid var(--black);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
+    box-shadow: 10px 10px 0 var(--primary);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.privacy-modal-header {
+    background: var(--primary);
+    color: var(--black);
+    padding: 20px 30px;
+    border-bottom: 4px solid var(--black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.privacy-modal-header h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.privacy-close {
+    background: none;
+    border: none;
+    color: var(--black);
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.privacy-close:hover {
+    transform: scale(1.2);
+}
+
+.privacy-modal-body {
+    padding: 30px;
+    max-height: 50vh;
+    overflow-y: auto;
+    color: var(--black);
+}
+
+.privacy-modal-body h4 {
+    color: var(--dark-brown);
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 5px;
+}
+
+.privacy-modal-body h4:first-child {
+    margin-top: 0;
+}
+
+.privacy-modal-body p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.privacy-modal-body ul {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.privacy-modal-body li {
+    margin-bottom: 8px;
+    color: var(--black);
+    font-size: 16px;
+}
+
+/* Mobile responsiveness for privacy modal */
+@media (max-width: 768px) {
+    .privacy-modal-content {
+        width: 95%;
+        margin: 10% auto;
+        max-height: 85vh;
+    }
+    
+    .privacy-modal-header {
+        padding: 15px 20px;
+    }
+    
+    .privacy-modal-header h3 {
+        font-size: 18px;
+    }
+    
+    .privacy-modal-body {
+        padding: 20px;
+        max-height: 60vh;
+    }
+    
+    .checkbox-text {
+        font-size: 14px;
+    }
+    
+    .checkbox-container {
+        padding-left: 30px;
+    }
+    
+    .checkmark {
+        width: 20px;
+        height: 20px;
     }
 }
 

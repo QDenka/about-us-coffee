@@ -11,8 +11,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: '*');
         $middleware->web(append: [
+            \App\Http\Middleware\TrustProxies::class,
             \App\Http\Middleware\SetLocale::class,
+            // \App\Http\Middleware\AnalyticsMiddleware::class, // Disabled temporarily due to Widget initialization conflict
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

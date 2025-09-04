@@ -42,6 +42,7 @@ class ContactController extends Controller
             'name' => 'required|string|max:255|min:2',
             'email' => 'required|email|max:255',
             'message' => 'required|string|max:2000|min:10',
+            'privacy_consent' => 'required|accepted',
         ]);
 
         if ($validator->fails()) {
@@ -75,6 +76,7 @@ class ContactController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'message' => $request->input('message'),
+            'privacy_consent' => $request->boolean('privacy_consent'),
             'ip_address' => $ip,
             'user_agent' => $request->userAgent(),
             'status' => $isSpam ? 'spam' : 'unread',

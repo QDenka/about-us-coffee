@@ -21,7 +21,8 @@ class JourneyStepsTable
                     ->sortable(),
                 TextColumn::make('icon')
                     ->searchable(),
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->url(fn ($record) => $record->image ? asset('storage/' . $record->image) : null),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')

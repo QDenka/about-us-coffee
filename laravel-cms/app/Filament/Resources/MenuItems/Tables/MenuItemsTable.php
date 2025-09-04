@@ -16,10 +16,24 @@ class MenuItemsTable
     {
         return $table
             ->columns([
+                TextColumn::make('name')
+                    ->label('Name')
+                    ->formatStateUsing(function ($record) {
+                        $translations = $record->getTranslations('name');
+                        $enName = is_array($translations) && isset($translations['en']) 
+                            ? (is_array($translations['en']) ? ($translations['en']['en'] ?? '') : $translations['en'])
+                            : '';
+                        $viName = is_array($translations) && isset($translations['vi'])
+                            ? (is_array($translations['vi']) ? ($translations['vi']['vi'] ?? '') : $translations['vi'])
+                            : '';
+                        return $enName . ($viName ? ' / ' . $viName : '');
+                    })
+                    ->searchable(),
                 TextColumn::make('price')
                     ->money('VND')
                     ->sortable(),
-                ImageColumn::make('image'),
+                ImageColumn::make('image')
+                    ->url(fn ($record) => $record->image ? asset('storage/' . $record->image) : null),
                 TextColumn::make('category')
                     ->searchable(),
                 IconColumn::make('is_available')

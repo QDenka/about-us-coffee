@@ -14,6 +14,7 @@ class ContactSubmission extends Model
         'name',
         'email', 
         'message',
+        'privacy_consent',
         'ip_address',
         'user_agent',
         'status',

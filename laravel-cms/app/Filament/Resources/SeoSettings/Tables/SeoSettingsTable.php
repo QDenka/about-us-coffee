@@ -17,7 +17,8 @@ class SeoSettingsTable
             ->columns([
                 TextColumn::make('page')
                     ->searchable(),
-                ImageColumn::make('og_image'),
+                ImageColumn::make('og_image')
+                    ->url(fn ($record) => $record->og_image ? asset('storage/' . $record->og_image) : null),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
