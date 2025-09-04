@@ -38,7 +38,10 @@ const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
 
-    navbar.classList.toggle('scrolled', scrolled > 100);
+    // Only apply scrolled class on desktop
+    if (window.innerWidth > 768) {
+        navbar.classList.toggle('scrolled', scrolled > 100);
+    }
 
     document.querySelectorAll('.coffee-bean-svg').forEach((bean, index) => {
         const speed = 0.15 + (index * 0.05);

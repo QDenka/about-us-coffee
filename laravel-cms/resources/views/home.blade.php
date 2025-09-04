@@ -44,6 +44,9 @@ function getSectionOrder($sectionKey, $sectionOrder) {
     @if($seo?->og_image)
     <meta property="og:image" content="{{ asset($seo->og_image) }}">
     @endif
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link rel="icon" href="{{ asset('favicon-16x16.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/png" sizes="32x32">
     <meta name="robots" content="index, follow">
     <meta name="author" content="ABOUT US Coffee & Eatery">
     <link rel="canonical" href="{{ url('/') }}">
@@ -509,7 +512,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                     <div class="char-counter"><span id="messageLength">0</span>/2000</div>
                     <div class="error-message" id="message-error"></div>
                 </div>
-                
+
                 <div class="form-group privacy-consent">
                     <label class="checkbox-container">
                         <input type="checkbox" id="privacy_consent" name="privacy_consent" required>
@@ -631,7 +634,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                 <li>Tin nhắn liên hệ</li>
                 <li>Địa chỉ IP (để bảo mật)</li>
             </ul>
-            
+
             <h4>Google Analytics</h4>
             <p>Website này sử dụng Google Analytics để phân tích lưu lượng truy cập. Google Analytics thu thập:</p>
             <ul>
@@ -641,7 +644,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                 <li>Trang web được xem và thời gian ở lại</li>
             </ul>
             <p>Dữ liệu này được sử dụng để cải thiện trải nghiệm người dùng và không được liên kết với thông tin cá nhân của bạn. Bạn có thể tắt Google Analytics bằng cách sử dụng các công cụ chặn theo dõi hoặc opt-out của Google.</p>
-            
+
             <h4>Mục Đích Sử Dụng</h4>
             <p>Dữ liệu của bạn được sử dụng để:</p>
             <ul>
@@ -650,10 +653,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                 <li>Ngăn chặn spam và lạm dụng</li>
                 <li>Phân tích và cải thiện hiệu suất website</li>
             </ul>
-            
+
             <h4>Bảo Mật Dữ Liệu</h4>
             <p>Chúng tôi cam kết bảo vệ thông tin cá nhân của bạn và không chia sẻ với bên thứ ba nào khác ngoài mục đích phản hồi liên hệ.</p>
-            
+
             <h4>Quyền Của Bạn</h4>
             <p>Bạn có quyền yêu cầu xóa hoặc chỉnh sửa thông tin cá nhân của mình bằng cách liên hệ với chúng tôi.</p>
             @else
@@ -665,7 +668,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                 <li>Contact message</li>
                 <li>IP address (for security purposes)</li>
             </ul>
-            
+
             <h4>Google Analytics</h4>
             <p>This website uses Google Analytics to analyze website traffic. Google Analytics collects:</p>
             <ul>
@@ -675,7 +678,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                 <li>Pages viewed and time spent</li>
             </ul>
             <p>This data is used to improve user experience and is not linked to your personal information. You can disable Google Analytics by using tracking blockers or Google's opt-out tools.</p>
-            
+
             <h4>Purpose of Use</h4>
             <p>Your data is used to:</p>
             <ul>
@@ -684,10 +687,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                 <li>Prevent spam and abuse</li>
                 <li>Analyze and improve website performance</li>
             </ul>
-            
+
             <h4>Data Security</h4>
             <p>We are committed to protecting your personal information and do not share it with any third parties except for the purpose of responding to your contact.</p>
-            
+
             <h4>Your Rights</h4>
             <p>You have the right to request deletion or modification of your personal information by contacting us.</p>
             @endif

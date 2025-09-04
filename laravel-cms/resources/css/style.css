@@ -1189,6 +1189,70 @@ nav ul a:hover {
     box-shadow: 3px 3px 0 var(--black);
 }
 
+/* Workspace Mobile Responsive */
+@media (max-width: 768px) {
+    .workspace {
+        margin: 20px;
+        padding: 60px 20px;
+    }
+
+    .workspace-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .workspace-visual {
+        padding: 15px;
+        box-shadow: 6px 6px 0 var(--black);
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .floor-diagram {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .floor-level {
+        margin: 15px 0;
+        padding: 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .speed-sticker {
+        position: static;
+        margin-bottom: 10px;
+        display: block;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .workspace-features {
+        justify-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .feature-tag {
+        font-size: 11px;
+        padding: 6px 10px;
+        margin: 2px;
+        flex: 0 1 auto;
+        white-space: nowrap;
+        box-sizing: border-box;
+        word-break: keep-all;
+    }
+}
+
 /* Coffee Journey - Interactive Path */
 .journey {
     padding: 120px 5% 100px;
@@ -1739,10 +1803,15 @@ nav ul a:hover {
     }
 
     .owner-description {
-        font-size: 16px;
-        line-height: 1.6;
+        font-size: 15px;
+        line-height: 1.7;
         margin-bottom: 25px;
         text-align: left;
+        word-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .owner-achievements {
@@ -2676,7 +2745,7 @@ footer::before {
 /* Mobile First Responsive */
 @media (max-width: 768px) {
     nav {
-        position: fixed;
+        position: absolute;
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
@@ -2688,10 +2757,6 @@ footer::before {
         z-index: 1000;
     }
 
-    nav.scrolled {
-        top: 20px;
-        padding: 10px 20px;
-    }
 
     .nav-content {
         justify-content: center;
