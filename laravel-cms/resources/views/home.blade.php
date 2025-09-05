@@ -50,90 +50,12 @@ function getSectionOrder($sectionKey, $sectionOrder) {
     <meta name="robots" content="index, follow">
     <meta name="author" content="ABOUT US Coffee & Eatery">
     <link rel="canonical" href="{{ url('/') }}{{ app()->getLocale() != 'en' ? '?lang=' . app()->getLocale() : '' }}">
-    
+
     <!-- Hreflang tags for multilingual SEO -->
     <link rel="alternate" hreflang="en" href="{{ url('/') }}?lang=en">
     <link rel="alternate" hreflang="vi" href="{{ url('/') }}?lang=vi">
     <link rel="alternate" hreflang="x-default" href="{{ url('/') }}">
-    
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": ["Restaurant", "LocalBusiness", "CafeOrCoffeeShop"],
-        "name": "ABOUT US Coffee & Eatery",
-        "alternateName": "About Us Coffee",
-        "description": "{{ safeGetTranslation($seo, 'meta_description', app()->getLocale()) ?: 'Specialty coffee and modern cafe culture in Da Nang. Quality coffee beans from diverse origins and comfortable workspace.' }}",
-        "url": "{{ url('/') }}",
-        "logo": "{{ asset('favicon-32x32.png') }}",
-        "image": "{{ $seo?->og_image ? asset($seo->og_image) : asset('favicon-32x32.png') }}",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "09 An Thượng 11, Bắc Mỹ Phú",
-            "addressLocality": "Ngũ Hành Sơn",
-            "addressRegion": "Đà Nẵng",
-            "postalCode": "550000",
-            "addressCountry": "VN"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "16.048002",
-            "longitude": "108.2426867"
-        },
-        "telephone": "+84866095557",
-        "email": "dothanhsang1908@gmail.com",
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-            ],
-            "opens": "07:30",
-            "closes": "21:30"
-        },
-        "priceRange": "$$",
-        "servesCuisine": ["Coffee", "Vietnamese", "Light Meals"],
-        "acceptsReservations": false,
-        "hasMenu": "{{ url('/') }}#menu",
-        "sameAs": [
-            "https://www.instagram.com/about_us.coffee/",
-            "https://web.facebook.com/profile.php?id=61569478955284"
-        ],
-        "@id": "{{ url('/') }}#business"
-    }
-    </script>
-    
-    @if(shouldShowSection('menu', $visibleSections ?? []) && ($coffeeMenu ?? collect())->count() > 0)
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Menu",
-        "name": "ABOUT US Coffee Menu",
-        "description": "Specialty coffee menu featuring Vietnamese robusta and international coffee varieties",
-        "inLanguage": ["en", "vi"],
-        "hasMenuSection": [
-            {
-                "@type": "MenuSection",
-                "name": "{{ app()->getLocale() == 'vi' ? 'CÀ PHÊ ĐẶC BIỆT' : 'COFFEE LOVER' }}",
-                "hasMenuItem": [
-                    @foreach($coffeeMenu ?? [] as $index => $item)
-                    {
-                        "@type": "MenuItem",
-                        "name": "{{ safeGetTranslation($item, 'name', app()->getLocale()) }}",
-                        "description": "{{ safeGetTranslation($item, 'description', app()->getLocale()) }}",
-                        "offers": {
-                            "@type": "Offer",
-                            "price": "{{ $item->price }}",
-                            "priceCurrency": "VND"
-                        }@if($item->image),
-                        "image": "{{ asset('storage/' . $item->image) }}"@endif
-                    }@if(!$loop->last),@endif
-                    @endforeach
-                ]
-            }
-        ]
-    }
-    </script>
-    @endif
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.min.css">
     <script type="module">
         import PhotoSwipeLightbox
