@@ -49,7 +49,91 @@ function getSectionOrder($sectionKey, $sectionOrder) {
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/png" sizes="32x32">
     <meta name="robots" content="index, follow">
     <meta name="author" content="ABOUT US Coffee & Eatery">
-    <link rel="canonical" href="{{ url('/') }}">
+    <link rel="canonical" href="{{ url('/') }}{{ app()->getLocale() != 'en' ? '?lang=' . app()->getLocale() : '' }}">
+    
+    <!-- Hreflang tags for multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="{{ url('/') }}?lang=en">
+    <link rel="alternate" hreflang="vi" href="{{ url('/') }}?lang=vi">
+    <link rel="alternate" hreflang="x-default" href="{{ url('/') }}">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": ["Restaurant", "LocalBusiness", "CafeOrCoffeeShop"],
+        "name": "ABOUT US Coffee & Eatery",
+        "alternateName": "About Us Coffee",
+        "description": "{{ safeGetTranslation($seo, 'meta_description', app()->getLocale()) ?: 'Specialty coffee and modern cafe culture in Da Nang. Quality coffee beans from diverse origins and comfortable workspace.' }}",
+        "url": "{{ url('/') }}",
+        "logo": "{{ asset('favicon-32x32.png') }}",
+        "image": "{{ $seo?->og_image ? asset($seo->og_image) : asset('favicon-32x32.png') }}",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "09 An Thượng 11, Bắc Mỹ Phú",
+            "addressLocality": "Ngũ Hành Sơn",
+            "addressRegion": "Đà Nẵng",
+            "postalCode": "550000",
+            "addressCountry": "VN"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "16.048002",
+            "longitude": "108.2426867"
+        },
+        "telephone": "+84866095557",
+        "email": "dothanhsang1908@gmail.com",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+            ],
+            "opens": "07:30",
+            "closes": "21:30"
+        },
+        "priceRange": "$$",
+        "servesCuisine": ["Coffee", "Vietnamese", "Light Meals"],
+        "acceptsReservations": false,
+        "hasMenu": "{{ url('/') }}#menu",
+        "sameAs": [
+            "https://www.instagram.com/about_us.coffee/",
+            "https://web.facebook.com/profile.php?id=61569478955284"
+        ],
+        "@id": "{{ url('/') }}#business"
+    }
+    </script>
+    
+    @if(shouldShowSection('menu', $visibleSections ?? []) && ($coffeeMenu ?? collect())->count() > 0)
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Menu",
+        "name": "ABOUT US Coffee Menu",
+        "description": "Specialty coffee menu featuring Vietnamese robusta and international coffee varieties",
+        "inLanguage": ["en", "vi"],
+        "hasMenuSection": [
+            {
+                "@type": "MenuSection",
+                "name": "{{ app()->getLocale() == 'vi' ? 'CÀ PHÊ ĐẶC BIỆT' : 'COFFEE LOVER' }}",
+                "hasMenuItem": [
+                    @foreach($coffeeMenu ?? [] as $index => $item)
+                    {
+                        "@type": "MenuItem",
+                        "name": "{{ safeGetTranslation($item, 'name', app()->getLocale()) }}",
+                        "description": "{{ safeGetTranslation($item, 'description', app()->getLocale()) }}",
+                        "offers": {
+                            "@type": "Offer",
+                            "price": "{{ $item->price }}",
+                            "priceCurrency": "VND"
+                        }@if($item->image),
+                        "image": "{{ asset('storage/' . $item->image) }}"@endif
+                    }@if(!$loop->last),@endif
+                    @endforeach
+                ]
+            }
+        ]
+    }
+    </script>
+    @endif
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.min.css">
     <script type="module">
         import PhotoSwipeLightbox
@@ -184,7 +268,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         <div class="story-card">
             @if($story->image)
             <div class="story-image">
-                <img src="{{ asset('storage/' . $story->image) }}" alt="{{ safeGetTranslation($story, 'title', app()->getLocale()) }}" loading="lazy">
+                <img src="{{ asset('storage/' . $story->image) }}" alt="{{ safeGetTranslation($story, 'title', app()->getLocale()) }} - Our Coffee Story at ABOUT US Coffee Da Nang" loading="lazy">
             </div>
             @endif
             <div class="story-content">
@@ -216,7 +300,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         <div class="menu-card">
             @if($item->image)
             <div class="menu-image">
-                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }}" loading="lazy">
+                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }} - Specialty Coffee at ABOUT US Coffee Da Nang" loading="lazy">
             </div>
             @endif
             <h3>{{ safeGetTranslation($item, 'name', app()->getLocale()) }}</h3>
@@ -232,7 +316,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         <div class="menu-card">
             @if($item->image)
             <div class="menu-image">
-                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }}" loading="lazy">
+                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }} - Specialty Coffee at ABOUT US Coffee Da Nang" loading="lazy">
             </div>
             @endif
             <h3>{{ safeGetTranslation($item, 'name', app()->getLocale()) }}</h3>
@@ -248,7 +332,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         <div class="menu-card">
             @if($item->image)
             <div class="menu-image">
-                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }}" loading="lazy">
+                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }} - Specialty Coffee at ABOUT US Coffee Da Nang" loading="lazy">
             </div>
             @endif
             <h3>{{ safeGetTranslation($item, 'name', app()->getLocale()) }}</h3>
@@ -264,7 +348,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         <div class="menu-card">
             @if($item->image)
             <div class="menu-image">
-                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }}" loading="lazy">
+                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }} - Specialty Coffee at ABOUT US Coffee Da Nang" loading="lazy">
             </div>
             @endif
             <h3>{{ safeGetTranslation($item, 'name', app()->getLocale()) }}</h3>
@@ -280,7 +364,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         <div class="menu-card">
             @if($item->image)
             <div class="menu-image">
-                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }}" loading="lazy">
+                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ safeGetTranslation($item, 'name', app()->getLocale()) }} - Specialty Coffee at ABOUT US Coffee Da Nang" loading="lazy">
             </div>
             @endif
             <h3>{{ safeGetTranslation($item, 'name', app()->getLocale()) }}</h3>
@@ -329,7 +413,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                            data-pswp-width="1200"
                            data-pswp-height="800">
                             <div class="floor-image">
-                                <img src="{{ asset('storage/' . $workspace->ground_floor_image) }}" alt="Ground Floor">
+                                <img src="{{ asset('storage/' . $workspace->ground_floor_image) }}" alt="Ground Floor Layout - ABOUT US Coffee & Eatery Da Nang">
                             </div>
                         </a>
                     @endif
@@ -344,7 +428,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
                            data-pswp-width="1200"
                            data-pswp-height="800">
                             <div class="floor-image">
-                                <img src="{{ asset('storage/' . $workspace->second_floor_image) }}" alt="Second Floor">
+                                <img src="{{ asset('storage/' . $workspace->second_floor_image) }}" alt="Second Floor Workspace - ABOUT US Coffee Study Area Da Nang">
                             </div>
                         </a>
                     @endif
@@ -433,7 +517,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         <div class="owner-info">
             @if($member->image)
             <div class="owner-image">
-                <img src="{{ asset('storage/' . $member->image) }}" alt="{{ $member->name }}" loading="lazy">
+                <img src="{{ asset('storage/' . $member->image) }}" alt="{{ $member->name }} - Coffee Master at ABOUT US Coffee Da Nang" loading="lazy">
             </div>
             @endif
             <div class="owner-bio">
@@ -468,16 +552,16 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         @else
             <!-- Fallback to default gallery images -->
             <a href="{{ asset('gallery/2025-02-25.webp') }}">
-                <img src="{{ asset('gallery/2025-02-25.webp') }}" alt="About Us Coffee" class="gallery-thumbnail"/>
+                <img src="{{ asset('gallery/2025-02-25.webp') }}" alt="ABOUT US Coffee Interior - Cozy Coffee Shop Atmosphere in Da Nang" class="gallery-thumbnail"/>
             </a>
             <a href="{{ asset('gallery/2025-01-02.webp') }}">
-                <img src="{{ asset('gallery/2025-01-02.webp') }}" alt="About Us Coffee" class="gallery-thumbnail"/>
+                <img src="{{ asset('gallery/2025-01-02.webp') }}" alt="ABOUT US Coffee Workspace - Study-friendly Cafe in Da Nang" class="gallery-thumbnail"/>
             </a>
             <a href="{{ asset('gallery/2025-01-02 (1).webp') }}">
-                <img src="{{ asset('gallery/2025-01-02 (1).webp') }}" alt="About Us Coffee" class="gallery-thumbnail"/>
+                <img src="{{ asset('gallery/2025-01-02 (1).webp') }}" alt="ABOUT US Coffee Specialty Drinks - Vietnamese Coffee Culture" class="gallery-thumbnail"/>
             </a>
             <a href="{{ asset('gallery/2025-01-08.webp') }}">
-                <img src="{{ asset('gallery/2025-01-08.webp') }}" alt="About Us Coffee" class="gallery-thumbnail"/>
+                <img src="{{ asset('gallery/2025-01-08.webp') }}" alt="ABOUT US Coffee Ambiance - Modern Cafe Design Da Nang" class="gallery-thumbnail"/>
             </a>
         @endif
     </div>

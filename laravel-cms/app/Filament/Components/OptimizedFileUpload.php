@@ -10,21 +10,21 @@ use Illuminate\Support\Facades\Storage;
 
 class OptimizedFileUpload extends FileUpload
 {
-    protected ?int $maxWidth = 1920;
-    protected ?int $maxHeight = 1080;
-    protected int $quality = 85;
+    protected ?int $imageMaxWidth = 1920;
+    protected ?int $imageMaxHeight = 1080;
+    protected int $imageQuality = 85;
     
     public function maxDimensions(int $width, int $height): static
     {
-        $this->maxWidth = $width;
-        $this->maxHeight = $height;
+        $this->imageMaxWidth = $width;
+        $this->imageMaxHeight = $height;
         
         return $this;
     }
     
     public function quality(int $quality): static
     {
-        $this->quality = min(100, max(1, $quality));
+        $this->imageQuality = min(100, max(1, $quality));
         
         return $this;
     }
@@ -34,34 +34,46 @@ class OptimizedFileUpload extends FileUpload
         parent::setUp();
         
         $this->afterStateUpdated(function ($state, $component) {
-            if ($state && is_string($state)) {
-                $this->optimizeUploadedImage($state);
+            if ($state) {
+                if (is_string($state)) {
+                    // Single file upload
+                    $this->optimizeUploadedImage($state);
+                } elseif (is_array($state)) {
+                    // Multiple file upload
+                    foreach ($state as $filename) {
+                        if (is_string($filename)) {
+                            $this->optimizeUploadedImage($filename);
+                        }
+                    }
+                }
             }
         });
     }
     
     protected function optimizeUploadedImage(string $filename): void
     {
-        $disk = $this->getDisk();
-        $path = $this->getDirectory() . '/' . $filename;
-        $fullPath = Storage::disk($disk)->path($path);
-        
-        if (!Storage::disk($disk)->exists($path)) {
-            return;
-        }
-        
-        // Check if it's an image
-        $mimeType = Storage::disk($disk)->mimeType($path);
-        if (!str_starts_with($mimeType, 'image/')) {
-            return;
-        }
-        
         try {
+            $diskName = $this->getDiskName();
+            $directory = $this->getDirectory();
+            $path = $directory ? $directory . '/' . $filename : $filename;
+            
+            if (!Storage::disk($diskName)->exists($path)) {
+                return;
+            }
+            
+            // Check if it's an image
+            $mimeType = Storage::disk($diskName)->mimeType($path);
+            if (!$mimeType || !str_starts_with($mimeType, 'image/')) {
+                return;
+            }
+            
+            $fullPath = Storage::disk($diskName)->path($path);
+            
             // Create ImageManager with GD driver
             $manager = new ImageManager(new Driver());
             
             // Resize if needed using Intervention Image v3
-            if ($this->maxWidth || $this->maxHeight) {
+            if ($this->imageMaxWidth || $this->imageMaxHeight) {
                 $image = $manager->read($fullPath);
                 
                 // Get original dimensions
@@ -72,15 +84,15 @@ class OptimizedFileUpload extends FileUpload
                 $newWidth = $originalWidth;
                 $newHeight = $originalHeight;
                 
-                if ($this->maxWidth && $originalWidth > $this->maxWidth) {
-                    $ratio = $this->maxWidth / $originalWidth;
-                    $newWidth = $this->maxWidth;
+                if ($this->imageMaxWidth && $originalWidth > $this->imageMaxWidth) {
+                    $ratio = $this->imageMaxWidth / $originalWidth;
+                    $newWidth = $this->imageMaxWidth;
                     $newHeight = (int) ($originalHeight * $ratio);
                 }
                 
-                if ($this->maxHeight && $newHeight > $this->maxHeight) {
-                    $ratio = $this->maxHeight / $newHeight;
-                    $newHeight = $this->maxHeight;
+                if ($this->imageMaxHeight && $newHeight > $this->imageMaxHeight) {
+                    $ratio = $this->imageMaxHeight / $newHeight;
+                    $newHeight = $this->imageMaxHeight;
                     $newWidth = (int) ($newWidth * $ratio);
                 }
                 
@@ -90,7 +102,7 @@ class OptimizedFileUpload extends FileUpload
                 }
                 
                 // Save with quality setting
-                $image->save($fullPath, $this->quality);
+                $image->save($fullPath, $this->imageQuality);
             }
             
             // Optimize with spatie/laravel-image-optimizer
@@ -98,7 +110,10 @@ class OptimizedFileUpload extends FileUpload
             
         } catch (\Exception $e) {
             // Log error but don't break the upload process
-            logger()->error('Image optimization failed: ' . $e->getMessage());
+            logger()->error('Image optimization failed: ' . $e->getMessage(), [
+                'filename' => $filename,
+                'error' => $e->getTraceAsString()
+            ]);
         }
     }
 }
