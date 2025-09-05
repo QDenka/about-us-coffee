@@ -21,6 +21,7 @@ class PageSection extends Model
         'is_required' => 'boolean',
     ];
 
+
     public static function getVisibleSections()
     {
         return self::where('is_visible', true)

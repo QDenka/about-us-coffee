@@ -39,7 +39,6 @@ class PageSectionTable
             ->recordActions([])
             ->toolbarActions([])
             ->reorderable('sort_order')
-            ->defaultSort('sort_order')
             ->recordUrl(null);
     }
 }

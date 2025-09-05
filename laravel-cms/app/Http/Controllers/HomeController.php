@@ -20,10 +20,15 @@ class HomeController extends Controller
     public function index()
     {
         $visibleSections = PageSection::getVisibleSections();
+        $orderedSections = PageSection::where('is_visible', true)
+            ->orderBy('sort_order')
+            ->pluck('section_key')
+            ->toArray();
         
         $data = [
             'seo' => SeoSettings::where('page', 'home')->first(),
             'visibleSections' => $visibleSections,
+            'orderedSections' => $orderedSections,
             'sectionOrder' => PageSection::orderBy('sort_order')->pluck('sort_order', 'section_key')->toArray(),
         ];
 

@@ -112,9 +112,8 @@ function getSectionOrder($sectionKey, $sectionOrder) {
     </div>
 </nav>
 
-<!-- Dynamic Sections Rendering Based on Database Sort Order -->
-@foreach($orderedSections ?? [] as $sectionKey)
-    @if($sectionKey === 'hero' && shouldShowSection('hero', $visibleSections ?? []))
+<!-- Hero Section -->
+@if(shouldShowSection('hero', $visibleSections ?? []))
 <section class="hero" id="home" @if($heroSettings?->background_image) style="    background: linear-gradient(135deg, rgba(245, 242, 237, 0.95), rgba(184, 181, 176, 0.95)), url({{ asset('storage/' . $heroSettings?->background_image) }}) center center / cover no-repeat;" @endif>
     <!-- Floating Coffee Beans SVG -->
     <svg class="coffee-bean-svg" style="top: 10%; left: 5%; width: 70px; height: 45px;" viewBox="0 0 60 40">
@@ -180,7 +179,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         </div>
     </div>
 </section>
-    @elseif($sectionKey === 'story' && shouldShowSection('story', $visibleSections ?? []))
+@endif
+
+<!-- Story Section -->
+@if(shouldShowSection('story', $visibleSections ?? []))
 <section class="story" id="story">
     <h2 class="section-title">{{ app()->getLocale() == 'vi' ? 'CÂU CHUYỆN CỦA CHÚNG TÔI' : 'OUR STORY' }}</h2>
     <div class="story-grid">
@@ -199,7 +201,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         @endforeach
     </div>
 </section>
-    @elseif($sectionKey === 'menu' && shouldShowSection('menu', $visibleSections ?? []))
+@endif
+
+<!-- Menu Section with Tabs -->
+@if(shouldShowSection('menu', $visibleSections ?? []))
 <section class="menu" id="menu">
     <h2 class="section-title">{{ app()->getLocale() == 'vi' ? 'THỰC ĐƠN & ĐỒ ĂN' : 'MENU & EATERY' }}</h2>
 
@@ -291,7 +296,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         @endforeach
     </div>
 </section>
-    @elseif($sectionKey === 'workspace' && shouldShowSection('workspace', $visibleSections ?? []))
+@endif
+
+<!-- Workspace Section -->
+@if(shouldShowSection('workspace', $visibleSections ?? []))
 <section class="workspace" id="workspace">
     <h2 class="section-title">{{ safeGetTranslation($workspace, 'title', app()->getLocale()) ?? (app()->getLocale() == 'vi' ? 'KHÔNG GIAN LÀM VIỆC' : 'WORKSPACE') }}</h2>
     <div class="workspace-content">
@@ -353,7 +361,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         </div>
     </div>
 </section>
-    @elseif($sectionKey === 'journey' && shouldShowSection('journey', $visibleSections ?? []))
+@endif
+
+<!-- Journey Section -->
+@if(shouldShowSection('journey', $visibleSections ?? []))
 <section class="journey" id="journey">
     <h2 class="section-title">{{ app()->getLocale() == 'vi' ? 'HÀNH TRÌNH CÀ PHÊ' : 'BEAN TO CUP JOURNEY' }}</h2>
     <div class="journey-container">
@@ -371,7 +382,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         </div>
     </div>
 </section>
-    @elseif($sectionKey === 'events' && shouldShowSection('events', $visibleSections ?? []) && (($events ?? collect())->count() > 0 || ($featuredEvents ?? collect())->count() > 0))
+@endif
+
+<!-- Events & Community Section -->
+@if(shouldShowSection('events', $visibleSections ?? []) && (($events ?? collect())->count() > 0 || ($featuredEvents ?? collect())->count() > 0))
 <section class="events-community">
     <h2 class="section-title">{{ app()->getLocale() == 'vi' ? 'SỰ KIỆN & CỘNG ĐỒNG' : 'EVENTS & COMMUNITY' }}</h2>
 
@@ -414,7 +428,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         </div>
     </div>
 </section>
-    @elseif($sectionKey === 'team' && shouldShowSection('team', $visibleSections ?? []) && ($teamMembers ?? collect())->count() > 0)
+@endif
+
+<!-- Owner & Masterclasses Section -->
+@if(shouldShowSection('team', $visibleSections ?? []) && ($teamMembers ?? collect())->count() > 0)
 <section class="owner-section">
     <h2 class="section-title">{{ app()->getLocale() == 'vi' ? 'GẶP GỠ MASTER' : 'MEET THE MASTER' }}</h2>
     @foreach($teamMembers ?? [] as $member)
@@ -434,7 +451,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
     </div>
     @endforeach
 </section>
-    @elseif($sectionKey === 'gallery' && shouldShowSection('gallery', $visibleSections ?? []))
+@endif
+
+<!-- Photo Gallery Section -->
+@if(shouldShowSection('gallery', $visibleSections ?? []))
 <section class="spaces-gallery">
     <h2 class="section-title">{{ app()->getLocale() == 'vi' ? 'PHÒNG TRƯNG BÀY' : 'GALLERY' }}</h2>
 
@@ -468,7 +488,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         @endif
     </div>
 </section>
-    @elseif($sectionKey === 'contact' && shouldShowSection('contact', $visibleSections ?? []))
+@endif
+
+<!-- Contact Section -->
+@if(shouldShowSection('contact', $visibleSections ?? []))
 <section class="contact" id="contact">
     <h2 class="section-title">{{ app()->getLocale() == 'vi' ? 'LIÊN HỆ' : 'CONTACT US' }}</h2>
     <div class="contact-grid">
@@ -545,7 +568,10 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         </div>
     </div>
 </section>
-    @elseif($sectionKey === 'footer' && shouldShowSection('footer', $visibleSections ?? []))
+@endif
+
+<!-- Footer -->
+@if(shouldShowSection('footer', $visibleSections ?? []))
 <footer>
     <div class="footer-content">
         <div class="footer-grid">
@@ -595,8 +621,7 @@ function getSectionOrder($sectionKey, $sectionOrder) {
         </div>
     </div>
 </footer>
-    @endif
-@endforeach
+@endif
 
 <!-- Privacy Information Modal -->
 <div id="privacyModal" class="privacy-modal" style="display: none;">

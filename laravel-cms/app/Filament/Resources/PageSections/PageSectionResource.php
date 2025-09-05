@@ -52,4 +52,9 @@ class PageSectionResource extends Resource
     {
         return !$record->is_required;
     }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()->orderBy('sort_order');
+    }
 }
