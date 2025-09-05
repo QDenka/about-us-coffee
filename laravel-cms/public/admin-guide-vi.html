@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng Dẫn Quản Trị About Us Coffee</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1CA39D 0%, #168980 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+        
+        .section h2 {
+            color: #1CA39D;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #1CA39D;
+        }
+        
+        .field {
+            background: white;
+            padding: 1rem;
+            margin: 0.8rem 0;
+            border-radius: 8px;
+            border-left: 3px solid #1CA39D;
+        }
+        
+        .field-name {
+            font-weight: bold;
+            color: #1CA39D;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .field-desc {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .example {
+            background: #e8f5e8;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #2e7d32;
+            font-style: italic;
+        }
+        
+        .required {
+            color: #c62828;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .note {
+            background: #fff3cd;
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 3px solid #f39c12;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content, .header {
+                padding: 1rem;
+            }
+            .section {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Hướng Dẫn Quản Trị Website</h1>
+            <p>Cách điền thông tin vào các form quản trị</p>
+        </header>
+
+        <main class="content">
+            <section class="section">
+                <h2>🏠 Cài Đặt Trang Chủ (Hero Settings)</h2>
+                
+                <div class="field">
+                    <div class="field-name">Tiêu đề chính</div>
+                    <div class="field-desc">Dòng chữ lớn nhất hiển thị trên trang chủ</div>
+                    <div class="example">Ví dụ: "Chào mừng đến với About Us Coffee"</div>
+                    <div class="required">* Bắt buộc nhập tiếng Anh</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Tiêu đề phụ</div>
+                    <div class="field-desc">Dòng chữ nhỏ hơn bên dưới tiêu đề chính</div>
+                    <div class="example">Ví dụ: "Không gian làm việc ấm cúng tại trung tâm Sài Gòn"</div>
+                    <div class="required">* Chỉ cần nhập tiếng Anh</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Hình nền</div>
+                    <div class="field-desc">Ảnh nền lớn hiển thị trên trang chủ</div>
+                    <div class="example">Chọn ảnh đẹp, rõ nét về quán cà phê</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📖 Câu Chuyện Công Ty (Stories)</h2>
+                
+                <div class="field">
+                    <div class="field-name">Tiêu đề câu chuyện</div>
+                    <div class="field-desc">Tên của câu chuyện hoặc giai đoạn</div>
+                    <div class="example">Ví dụ: "Khởi đầu hành trình"</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Nội dung câu chuyện</div>
+                    <div class="field-desc">Viết chi tiết về câu chuyện, khoảng 2-3 đoạn văn</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Ảnh minh họa</div>
+                    <div class="field-desc">Ảnh liên quan đến câu chuyện</div>
+                    <div class="example">Có thể là ảnh quán cà phê, nhân viên, hoặc sự kiện</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Thứ tự hiển thị</div>
+                    <div class="field-desc">Số để sắp xếp thứ tự câu chuyện trên website</div>
+                    <div class="example">Câu chuyện đầu tiên nhập 10, thứ hai nhập 20, thứ ba nhập 30...</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Hiển thị</div>
+                    <div class="field-desc">Bật/tắt để hiển thị hoặc ẩn câu chuyện trên website</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>👥 Thành Viên Đội Ngũ (Team)</h2>
+                
+                <div class="field">
+                    <div class="field-name">Tên nhân viên</div>
+                    <div class="field-desc">Tên đầy đủ của nhân viên</div>
+                    <div class="example">Ví dụ: "Nguyễn Văn An"</div>
+                    <div class="required">* Bắt buộc</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Chức vụ</div>
+                    <div class="field-desc">Vị trí công việc của nhân viên</div>
+                    <div class="example">Ví dụ: "Barista Trưởng", "Quản lý"</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Giới thiệu</div>
+                    <div class="field-desc">Viết ngắn gọn về nhân viên, kinh nghiệm, sở thích</div>
+                    <div class="example">Khoảng 2-3 câu giới thiệu</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Ảnh đại diện</div>
+                    <div class="field-desc">Ảnh chân dung của nhân viên</div>
+                    <div class="example">Ảnh rõ mặt, chuyên nghiệp</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Hiển thị</div>
+                    <div class="field-desc">Bật/tắt để hiển thị nhân viên trên website</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>☕ Thực Đơn (Menu)</h2>
+                
+                <div class="field">
+                    <div class="field-name">Tên món</div>
+                    <div class="field-desc">Tên đồ uống hoặc món ăn</div>
+                    <div class="example">Ví dụ: "Cà phê sữa đá", "Bánh mì"</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Mô tả món</div>
+                    <div class="field-desc">Giới thiệu ngắn về món, nguyên liệu, vị</div>
+                    <div class="example">Ví dụ: "Cà phê truyền thống với sữa đặc ngọt ngào"</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Giá tiền</div>
+                    <div class="field-desc">Giá bán của món (chỉ nhập số)</div>
+                    <div class="example">Ví dụ: nhập "45000" cho giá 45.000 VND</div>
+                    <div class="required">* Bắt buộc</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Danh mục</div>
+                    <div class="field-desc">Chọn loại món từ danh sách có sẵn</div>
+                    <div class="example">Cà phê, Đồ uống Việt Nam, Thức ăn, v.v.</div>
+                    <div class="required">* Bắt buộc chọn</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Ảnh món ăn</div>
+                    <div class="field-desc">Ảnh đẹp của món ăn/đồ uống</div>
+                    <div class="example">Ảnh rõ nét, hấp dẫn</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Còn hàng</div>
+                    <div class="field-desc">Bật nếu món còn bán, tắt nếu hết hàng</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Thứ tự</div>
+                    <div class="field-desc">Số để sắp xếp thứ tự món trong menu</div>
+                    <div class="example">Món đầu nhập 10, món thứ hai nhập 20...</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📅 Sự Kiện (Events)</h2>
+                
+                <div class="field">
+                    <div class="field-name">Tên sự kiện</div>
+                    <div class="field-desc">Tên đầy đủ của sự kiện</div>
+                    <div class="example">Ví dụ: "Workshop pha cà phê", "Nhạc acoustic tối thứ 7"</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Mô tả sự kiện</div>
+                    <div class="field-desc">Chi tiết về sự kiện, nội dung, đối tượng tham gia</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Ngày diễn ra</div>
+                    <div class="field-desc">Chọn ngày từ lịch</div>
+                    <div class="required">* Bắt buộc</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Giờ diễn ra</div>
+                    <div class="field-desc">Chọn giờ bắt đầu sự kiện</div>
+                    <div class="example">Ví dụ: 19:30</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Địa điểm</div>
+                    <div class="field-desc">Nơi diễn ra sự kiện cụ thể</div>
+                    <div class="example">Ví dụ: "Tầng 2", "Sân thượng", "Toàn bộ quán"</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Ảnh sự kiện</div>
+                    <div class="field-desc">Ảnh poster hoặc ảnh minh họa cho sự kiện</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Sự kiện nổi bật</div>
+                    <div class="field-desc">Bật nếu muốn hiển thị sự kiện trên trang chủ</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Hiển thị</div>
+                    <div class="field-desc">Bật/tắt để hiển thị sự kiện trên website</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🏢 Không Gian Làm Việc (Workspaces)</h2>
+                
+                <div class="field">
+                    <div class="field-name">Tên không gian</div>
+                    <div class="field-desc">Tên khu vực trong quán</div>
+                    <div class="example">Ví dụ: "Khu vực coworking", "Phòng họp nhỏ"</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Mô tả 1, 2, 3</div>
+                    <div class="field-desc">3 đoạn mô tả khác nhau về không gian</div>
+                    <div class="example">Mô tả 1: Tổng quan, Mô tả 2: Tiện ích, Mô tả 3: Ưu điểm</div>
+                    <div class="required">* Chỉ cần nhập Mô tả 1</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Tiện ích</div>
+                    <div class="field-desc">Liệt kê các tiện ích, cách nhau bằng dấu phẩy</div>
+                    <div class="example">Ví dụ: "WiFi nhanh, Ổ cắm điện, Điều hòa, Máy chiếu"</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Tốc độ WiFi</div>
+                    <div class="field-desc">Tốc độ internet tại khu vực này</div>
+                    <div class="example">Ví dụ: "300mbps"</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Thông tin tầng</div>
+                    <div class="field-desc">Tên và mô tả cho tầng trệt và tầng 2</div>
+                    <div class="example">Ví dụ: "Tầng trệt - Khu vực chính", "Tầng 2 - Không gian riêng tư"</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Ảnh tầng</div>
+                    <div class="field-desc">Ảnh của tầng trệt và tầng 2</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>🖼️ Thư Viện Ảnh (Gallery)</h2>
+                
+                <div class="field">
+                    <div class="field-name">Tiêu đề ảnh</div>
+                    <div class="field-desc">Tên mô tả cho ảnh (không bắt buộc)</div>
+                    <div class="example">Ví dụ: "Góc nhỏ ấm cúng", "Buổi sáng tại quán"</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Mô tả ảnh</div>
+                    <div class="field-desc">Mô tả ngắn gọn nội dung ảnh</div>
+                    <div class="example">Ví dụ: "Không gian bên trong quán cà phê"</div>
+                    <div class="required">* Bắt buộc nhập tiếng Anh</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Ảnh</div>
+                    <div class="field-desc">Chọn ảnh đẹp về quán cà phê để hiển thị</div>
+                    <div class="required">* Bắt buộc</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Thứ tự</div>
+                    <div class="field-desc">Số để sắp xếp thứ tự ảnh trong thư viện</div>
+                    <div class="example">Ảnh đầu nhập 10, ảnh thứ hai nhập 20...</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Hiển thị</div>
+                    <div class="field-desc">Bật/tắt để hiển thị ảnh trong thư viện</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>📞 Thông Tin Liên Hệ (Footer)</h2>
+                
+                <div class="field">
+                    <div class="field-name">Email</div>
+                    <div class="field-desc">Địa chỉ email của quán</div>
+                    <div class="example">Ví dụ: info@aboutuscoffee.com</div>
+                    <div class="required">* Bắt buộc</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Số điện thoại</div>
+                    <div class="field-desc">Số điện thoại liên hệ</div>
+                    <div class="example">Ví dụ: +84 123 456 789</div>
+                    <div class="required">* Bắt buộc</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Địa chỉ</div>
+                    <div class="field-desc">Địa chỉ đầy đủ của quán</div>
+                    <div class="example">Ví dụ: 123 Nguyễn Huệ, Quận 1, TP.HCM</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Giờ mở cửa</div>
+                    <div class="field-desc">Thời gian hoạt động của quán</div>
+                    <div class="example">Ví dụ: Thứ 2-CN: 7:00-22:00</div>
+                    <div class="required">* Nhập cả tiếng Anh và tiếng Việt</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Facebook</div>
+                    <div class="field-desc">Đường link đến trang Facebook</div>
+                    <div class="example">Ví dụ: https://facebook.com/aboutuscoffee</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">Instagram</div>
+                    <div class="field-desc">Đường link đến trang Instagram</div>
+                    <div class="example">Ví dụ: https://instagram.com/aboutuscoffee</div>
+                </div>
+
+                <div class="field">
+                    <div class="field-name">YouTube</div>
+                    <div class="field-desc">Đường link đến kênh YouTube</div>
+                    <div class="example">Ví dụ: https://youtube.com/aboutuscoffee</div>
+                </div>
+            </section>
+
+            <div class="note">
+                <strong>💡 Lưu ý quan trọng:</strong>
+                <ul style="margin: 0.5rem 0; padding-left: 1.2rem;">
+                    <li>Những mục có dấu (*) là bắt buộc phải điền</li>
+                    <li>Khi nhập "cả tiếng Anh và tiếng Việt" - hãy điền vào cả 2 ô tương ứng</li>
+                    <li>Ảnh nên có chất lượng tốt và liên quan đến nội dung</li>
+                    <li>Số thứ tự: dùng 10, 20, 30... để dễ sắp xếp lại sau này</li>
+                    <li>Bật/Tắt: dùng để hiển thị hoặc ẩn nội dung mà không cần xóa</li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

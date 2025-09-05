@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Workspaces\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Components\OptimizedFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Section;
@@ -81,12 +81,16 @@ class WorkspaceForm
                 
                 Section::make('Floor Images')
                     ->schema([
-                        FileUpload::make('ground_floor_image')
+                        OptimizedFileUpload::make('ground_floor_image')
+                            ->maxDimensions(800, 600)
+                            ->quality(85)
                             ->label('Ground Floor Image')
                             ->image()
                             ->disk('public')
                             ->directory('floor-images'),
-                        FileUpload::make('second_floor_image')
+                        OptimizedFileUpload::make('second_floor_image')
+                            ->maxDimensions(800, 600)
+                            ->quality(85)
                             ->label('Second Floor Image')
                             ->image()
                             ->disk('public')

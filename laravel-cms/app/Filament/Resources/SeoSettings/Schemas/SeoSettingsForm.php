@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\SeoSettings\Schemas;
 
 use App\Filament\Concerns\HasTranslationFields;
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Components\OptimizedFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Grid;
@@ -180,7 +180,9 @@ class SeoSettingsForm
                                 }
                             }),
                     ]),
-                FileUpload::make('og_image')
+                OptimizedFileUpload::make('og_image')
+                    ->maxDimensions(1200, 630)
+                    ->quality(85)
                     ->image()
                     ->disk('public')
                     ->directory('seo')

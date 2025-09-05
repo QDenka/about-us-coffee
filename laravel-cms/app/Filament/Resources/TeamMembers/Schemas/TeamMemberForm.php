@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\TeamMembers\Schemas;
 
 use App\Filament\Concerns\HasTranslationFields;
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Components\OptimizedFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -83,7 +83,9 @@ class TeamMemberForm
                                 }
                             }),
                     ]),
-                FileUpload::make('image')
+                OptimizedFileUpload::make('image')
+                    ->maxDimensions(600, 800)
+                    ->quality(85)
                     ->image()
                     ->disk('public')
                     ->directory('team'),

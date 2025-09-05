@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Stories\Schemas;
 
 use App\Filament\Concerns\HasTranslationFields;
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Components\OptimizedFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -81,7 +81,9 @@ class StoryForm
                                 }
                             }),
                     ]),
-                FileUpload::make('image')
+                OptimizedFileUpload::make('image')
+                    ->maxDimensions(1200, 800)
+                    ->quality(85)
                     ->image()
                     ->disk('public')
                     ->directory('stories'),

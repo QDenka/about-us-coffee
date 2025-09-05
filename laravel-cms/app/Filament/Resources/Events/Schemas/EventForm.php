@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Events\Schemas;
 
 use App\Filament\Concerns\HasTranslationFields;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Components\OptimizedFileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
@@ -82,7 +82,9 @@ class EventForm
                                 }
                             }),
                     ]),
-                FileUpload::make('image')
+                OptimizedFileUpload::make('image')
+                    ->maxDimensions(1200, 800)
+                    ->quality(85)
                     ->image()
                     ->disk('public')
                     ->directory('events'),

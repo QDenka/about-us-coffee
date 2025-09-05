@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\MenuItems\Schemas;
 
 use App\Filament\Concerns\HasTranslationFields;
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Components\OptimizedFileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -87,7 +87,9 @@ class MenuItemForm
                     ->numeric()
                     ->prefix('₫')
                     ->suffix('VND'),
-                FileUpload::make('image')
+                OptimizedFileUpload::make('image')
+                    ->maxDimensions(800, 600)
+                    ->quality(85)
                     ->image()
                     ->disk('public')
                     ->directory('menu-items'),

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\HeroSettings\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Components\OptimizedFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -42,7 +42,9 @@ class HeroSettingsForm
                         return $state;
                     })
                     ->columnSpanFull(),
-                FileUpload::make('background_image')
+                OptimizedFileUpload::make('background_image')
+                    ->maxDimensions(1920, 1080)
+                    ->quality(85)
                     ->label('Background Image')
                     ->image()
                     ->disk('public')

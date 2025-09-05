@@ -1,3 +1,43 @@
+// Language Detection and Auto-Switch
+(function() {
+    // Check if language has been manually set by user
+    const hasManualLanguageSet = sessionStorage.getItem('manualLanguageSet');
+    
+    if (!hasManualLanguageSet) {
+        // Get browser language
+        const browserLang = navigator.language || navigator.userLanguage || 'en';
+        const primaryLang = browserLang.toLowerCase().split('-')[0];
+        
+        // Get current page language from HTML lang attribute
+        const currentLang = document.documentElement.lang || 'en';
+        
+        // Determine target language based on browser settings
+        let targetLang = 'en'; // Default to English
+        
+        // Check if browser language is Vietnamese
+        if (primaryLang === 'vi' || browserLang.toLowerCase().includes('vi-')) {
+            targetLang = 'vi';
+        }
+        
+        // If target language differs from current, switch it
+        if (targetLang !== currentLang && !window.location.href.includes('/lang/')) {
+            // Check if we already have a session (to avoid unnecessary redirects)
+            const urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.has('lang')) {
+                // Redirect to set the language
+                window.location.href = `/lang/${targetLang}?redirect=${encodeURIComponent(window.location.pathname)}`;
+            }
+        }
+    }
+    
+    // Mark language as manually set when user clicks language switcher
+    document.querySelectorAll('a[href*="/lang/"]').forEach(link => {
+        link.addEventListener('click', () => {
+            sessionStorage.setItem('manualLanguageSet', 'true');
+        });
+    });
+})();
+
 window.addEventListener('load', () => {
     setTimeout(() => {
         const loader = document.getElementById('loader');

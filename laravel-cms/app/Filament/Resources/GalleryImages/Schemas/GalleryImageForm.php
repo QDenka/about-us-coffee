@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\GalleryImages\Schemas;
 
 use App\Filament\Concerns\HasTranslationFields;
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Components\OptimizedFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
@@ -13,7 +13,7 @@ use Filament\Schemas\Schema;
 class GalleryImageForm
 {
     use HasTranslationFields;
-    
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -32,7 +32,7 @@ class GalleryImageForm
                             ->dehydrateStateUsing(function ($state, $get, $record) {
                                 $currentTranslations = $record?->getTranslations('title') ?? [];
                                 $viState = $get('title_vi');
-                                
+
                                 $result = HasTranslationFields::buildTranslationStructure($currentTranslations, 'en', $state);
                                 if ($viState !== null) {
                                     $result = HasTranslationFields::buildTranslationStructure($result, 'vi', $viState);
@@ -62,7 +62,7 @@ class GalleryImageForm
                             ->dehydrateStateUsing(function ($state, $get, $record) {
                                 $currentTranslations = $record?->getTranslations('alt_text') ?? [];
                                 $viState = $get('alt_text_vi');
-                                
+
                                 $result = HasTranslationFields::buildTranslationStructure($currentTranslations, 'en', $state);
                                 if ($viState !== null) {
                                     $result = HasTranslationFields::buildTranslationStructure($result, 'vi', $viState);
@@ -80,12 +80,13 @@ class GalleryImageForm
                                 }
                             }),
                     ]),
-                FileUpload::make('image_path')
+                OptimizedFileUpload::make('image_path')
                     ->image()
                     ->disk('public')
                     ->directory('gallery')
+                    ->maxDimensions(1920, 1080)
+                    ->quality(85)
                     ->required(),
-                TextInput::make('thumbnail_path'),
                 TextInput::make('order')
                     ->required()
                     ->numeric()

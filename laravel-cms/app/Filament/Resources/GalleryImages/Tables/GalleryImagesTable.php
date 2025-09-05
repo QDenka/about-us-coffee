@@ -18,8 +18,6 @@ class GalleryImagesTable
             ->columns([
                 ImageColumn::make('image_path')
                     ->url(fn ($record) => $record->image_path ? asset('storage/' . $record->image_path) : null),
-                TextColumn::make('thumbnail_path')
-                    ->searchable(),
                 TextColumn::make('order')
                     ->numeric()
                     ->sortable(),
